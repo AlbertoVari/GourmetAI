@@ -1,25 +1,36 @@
-pragma solidity ^0.4.24;
-
-contract Tweet
-{
-    bytes10 public location;
-    bytes10 public text;
-    bytes10 public score;
-    bytes10 public magnit;
-
-    constructor(bytes10 _location,
-                bytes10 _text,
-                bytes10 _score,
-                bytes10 _magnit) public
-    {
-        require(_location.length > 0, "Location vuoto");
-        require(_text.length > 0, "Text vuota");
-        require(_score.length   > 0, "Score vuoto");
-        require(_magnit.length > 0, "Magnitude vuoto");
-
-        location = _location;
-        text = _text;
-        score   = _score;
-        magnit = _magnit;
+headers:
+    type: DeployContract
+from: "0x0076c7dd60D1A01A9f89Afaec2D5818Fd7CD7081"
+params:
+    - 12345
+gas: 100000000
+compilerVersion: '0.5'
+solidity: |-
+    pragma solidity >=0.4.24 <0.6.0;
+    /**
+     * @title Simple Storage
+     * @dev Read and write values to the chain
+     */
+    contract simplestorage {
+        uint public storedData;
+        /**
+         * @dev Constructor sets the default value
+         * @param initVal The initial value
+         */
+        constructor(uint initVal) public {
+            storedData = initVal;
+        }
+        /**
+         * @dev Set the value
+         * @param x The new value
+         */
+        function set(uint x) public {
+            storedData = x;
+        }
+        /**
+         * @dev Get the value
+         */
+        function get() public view returns (uint retVal) {
+            return storedData;
+        }
     }
-}
